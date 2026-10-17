@@ -45,6 +45,7 @@ var tableQueries = map[string]queries{
 }
 
 type Records struct {
+	table   string
 	db      *sql.DB
 	queries queries
 }
@@ -54,7 +55,7 @@ func NewRecords(db *sql.DB, table string) (*Records, error) {
 	if !ok {
 		return nil, fmt.Errorf("unsupported table: %s", table)
 	}
-	return &Records{db: db, queries: q}, nil
+	return &Records{db: db, queries: q, table: table}, nil
 }
 
 func (r *Records) List(ctx context.Context) ([]map[string]any, error) {

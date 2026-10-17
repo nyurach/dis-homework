@@ -9,14 +9,16 @@ import (
 
 	"education/internal/database"
 	"education/internal/repository"
+	"education/internal/service"
 )
 
 type RecordHandler struct {
-	stores []*database.Store
+	records *service.Records
+	stores  []*database.Store
 }
 
 func NewRecordHandler(stores []*database.Store) *RecordHandler {
-	return &RecordHandler{stores: stores}
+	return &RecordHandler{stores: stores, records: service.NewRecords(stores)}
 }
 
 func (h *RecordHandler) ListDatabases(w http.ResponseWriter, r *http.Request) {
@@ -112,7 +114,7 @@ func (h *RecordHandler) List(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *RecordHandler) Create(w http.ResponseWriter, r *http.Request) {
-	store, table, ok := h.resolve(w, r)
+	_, table, ok := h.resolve(w, r)
 	if !ok {
 		return
 	}
@@ -124,7 +126,7 @@ func (h *RecordHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id, err := store.Create(ctx, values)
+	id, err := h.records.Create(ctx, table.Name, values)
 	if err != nil {
 		dbError(w, err)
 		return
@@ -133,7 +135,7 @@ func (h *RecordHandler) Create(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *RecordHandler) Update(w http.ResponseWriter, r *http.Request) {
-	store, table, ok := h.resolve(w, r)
+	_, table, ok := h.resolve(w, r)
 	if !ok {
 		return
 	}
@@ -150,12 +152,12 @@ func (h *RecordHandler) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, err := store.Update(ctx, id, values)
+	result, err := h.records.Update(ctx, table.Name, id, values)
 	finish(w, result, err)
 }
 
 func (h *RecordHandler) Delete(w http.ResponseWriter, r *http.Request) {
-	store, _, ok := h.resolve(w, r)
+	_, table, ok := h.resolve(w, r)
 	if !ok {
 		return
 	}
@@ -167,6 +169,6 @@ func (h *RecordHandler) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, err := store.Delete(ctx, id)
+	result, err := h.records.Delete(ctx, table.Name, id)
 	finish(w, result, err)
 }

@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 
+	"education/internal/service"
 	"github.com/jackc/pgx/v5/pgconn"
 )
 
@@ -19,6 +20,11 @@ func fail(w http.ResponseWriter, status int, message string) {
 	respond(w, status, map[string]string{"error": message})
 }
 func dbError(w http.ResponseWriter, err error) {
+	var conflict *service.ConflictError
+	if errors.As(err, &conflict) {
+		fail(w, http.StatusConflict, conflict.Message)
+		return
+	}
 	var pe *pgconn.PgError
 	if errors.As(err, &pe) && (strings.HasPrefix(pe.Code, "23") || strings.HasPrefix(pe.Code, "22")) {
 		fail(w, 400, "Invalid data: "+pe.Message)
