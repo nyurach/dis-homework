@@ -81,5 +81,6 @@ func (a *App) Run(ctx context.Context) error {
 	if errors.Is(err, http.ErrServerClosed) {
 		return nil
 	}
+	
 	return err
 }

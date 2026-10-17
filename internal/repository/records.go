@@ -10,7 +10,6 @@ type queries struct {
 	list, create, update, delete string
 }
 
-// Explicit queries keep identifiers fixed; all request values use placeholders.
 var tableQueries = map[string]queries{
 	"students": {
 		list:   `SELECT id, username, full_name, grade_level, region FROM students ORDER BY id LIMIT 500`,
@@ -55,6 +54,7 @@ func NewRecords(db *sql.DB, table string) (*Records, error) {
 	if !ok {
 		return nil, fmt.Errorf("unsupported table: %s", table)
 	}
+	
 	return &Records{db: db, queries: q, table: table}, nil
 }
 
@@ -64,20 +64,25 @@ func (r *Records) List(ctx context.Context) ([]map[string]any, error) {
 		return nil, err
 	}
 	defer rows.Close()
+
 	columns, err := rows.Columns()
 	if err != nil {
 		return nil, err
 	}
+
 	result := []map[string]any{}
 	for rows.Next() {
 		values := make([]any, len(columns))
 		pointers := make([]any, len(columns))
+
 		for i := range values {
 			pointers[i] = &values[i]
 		}
+
 		if err := rows.Scan(pointers...); err != nil {
 			return nil, err
 		}
+
 		item := map[string]any{}
 		for i, column := range columns {
 			if value, ok := values[i].([]byte); ok {
@@ -86,6 +91,7 @@ func (r *Records) List(ctx context.Context) ([]map[string]any, error) {
 				item[column] = values[i]
 			}
 		}
+
 		result = append(result, item)
 	}
 	return result, rows.Err()
@@ -112,6 +118,8 @@ func changed(result sql.Result, err error) (bool, error) {
 	if err != nil {
 		return false, err
 	}
+
 	count, err := result.RowsAffected()
+	
 	return count > 0, err
 }

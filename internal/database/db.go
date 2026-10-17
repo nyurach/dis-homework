@@ -88,6 +88,7 @@ func Open(s *Store) error {
 		}
 		err = db.PingContext(ctx)
 	}
+
 	if err != nil {
 		db.Close()
 		return fmt.Errorf("connect to %s at %s:%d: %w", s.Name, config.Host, config.Port, err)
@@ -103,7 +104,9 @@ func Open(s *Store) error {
 		db.Close()
 		return fmt.Errorf("initialize %s: %w", s.Name, err)
 	}
+
 	s.DB = db
+
 	return nil
 }
 
@@ -118,9 +121,11 @@ func initialize(ctx context.Context, db *sql.DB, script string) error {
 	if _, err := tx.ExecContext(ctx, script); err != nil {
 		return fmt.Errorf("execute initialization: %w", err)
 	}
+
 	if err := tx.Commit(); err != nil {
 		return fmt.Errorf("commit initialization: %w", err)
 	}
+
 	return nil
 }
 
@@ -138,5 +143,6 @@ func createDatabase(ctx context.Context, config *pgx.ConnConfig) error {
 	if errors.As(err, &postgresError) && postgresError.Code == "42P04" {
 		return nil
 	}
+	
 	return err
 }
