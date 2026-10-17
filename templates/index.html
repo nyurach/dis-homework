@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Open Classroom · Database explorer</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header>
+      <strong>◈ Open Classroom</strong
+      ><span>Virtual education center</span>
+    </header>
+    <main>
+      <div class="eyebrow">LEARNING WITHOUT BORDERS</div>
+      <h1>Endless possibilities. One learning community.</h1>
+      <nav id="databases" class="databases" aria-label="Databases"></nav>
+      <section>
+        <div class="toolbar">
+          <h2 id="title">Loading databases…</h2>
+          <button class="primary" id="add">+ Add record</button>
+        </div>
+        <div id="notice" role="status" aria-live="polite"></div>
+        <div class="scroll">
+          <table>
+            <thead id="head"></thead>
+            <tbody id="body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <dialog id="editor">
+      <form id="form">
+        <h2 id="formTitle"></h2>
+        <div id="fields"></div>
+        <p id="formError" role="alert"></p>
+        <div class="footer">
+          <button type="button" id="cancel">Cancel</button
+          ><button class="primary" id="save">Save record</button>
+        </div>
+      </form>
+    </dialog>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

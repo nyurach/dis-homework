@@ -1,0 +1,194 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #173d38;
+  background: #f5f7f4;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+header {
+  padding: 28px 5%;
+  background: #173d38;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header strong {
+  font-size: 23px;
+}
+header span {
+  color: #b8d6c5;
+}
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 38px 24px;
+}
+h1 {
+  font-size: 36px;
+  margin: 8px 0;
+}
+p {
+  color: #526b64;
+  line-height: 1.6;
+}
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #43765e;
+}
+.databases {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin: 28px 0;
+}
+button,
+select,
+input,
+textarea {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+  border: 1px solid #cbd9d1;
+  border-radius: 8px;
+  padding: 11px 16px;
+  background: white;
+  color: #173d38;
+}
+button:hover {
+  background: #e3eee7;
+}
+button.active,
+.primary {
+  background: #21694d;
+  color: white;
+  border-color: #21694d;
+}
+.database {
+  text-align: left;
+  min-height: 90px;
+}
+.database small {
+  display: block;
+  margin-bottom: 8px;
+  opacity: 0.7;
+}
+section {
+  background: white;
+  border: 1px solid #dce5df;
+  border-radius: 14px;
+  padding: 24px;
+}
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.toolbar h2 {
+  margin: 0 auto 0 0;
+  font-size: 20px;
+}
+select,
+input,
+textarea {
+  padding: 10px;
+  border: 1px solid #bfcec5;
+  border-radius: 6px;
+  background: white;
+  max-width: 100%;
+}
+.scroll {
+  overflow: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #62796e;
+}
+td,
+th {
+  padding: 14px 10px;
+  border-bottom: 1px solid #e4ebe6;
+}
+td {
+  max-width: 330px;
+  overflow-wrap: anywhere;
+}
+td button {
+  padding: 6px 10px;
+  margin: 2px;
+}
+.actions {
+  min-width: 145px;
+}
+#notice {
+  min-height: 26px;
+  color: #a23326;
+  margin: 12px 0;
+}
+.hint {
+  font-size: 13px;
+}
+dialog {
+  border: 1px solid #cbd9d1;
+  border-radius: 14px;
+  padding: 28px;
+  width: min(520px, 94vw);
+}
+dialog::backdrop {
+  background: #102a2680;
+}
+label {
+  display: block;
+  margin: 15px 0;
+  font-size: 14px;
+}
+label input,
+label textarea,
+label select {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+}
+textarea {
+  min-height: 95px;
+}
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+@media (max-width: 800px) {
+  .databases {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  header span {
+    display: none;
+  }
+  h1 {
+    font-size: 28px;
+  }
+  main {
+    padding: 24px 14px;
+  }
+  section {
+    padding: 16px;
+  }
+}
