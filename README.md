@@ -22,13 +22,7 @@ const (
 )
 ```
 
-Leave the password empty only if your local PostgreSQL authentication allows it. This project connects locally with `sslmode=disable`.
-
-Check your connection, substituting your login:
-
-```sh
-psql -h 127.0.0.1 -p 5432 -U your_postgres_username -d postgres -c "SELECT version();"
-```
+Leave the password empty only if your local PostgreSQL authentication allows it.
 
 Start the app:
 
