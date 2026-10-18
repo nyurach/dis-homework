@@ -2,7 +2,7 @@
 
 A local education administration app built with Go, PostgreSQL, HTML, CSS, and JavaScript. Use the browser to view, add, edit, and delete students, teachers, courses, videos, and grades.
 
-<video src="hw2.mov" width="320" height="240" controls></video>
+[▶ YouTube video](https://youtu.be/WHyjxgwvabs)
 
 ## Requirements
 
