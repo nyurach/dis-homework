@@ -7,7 +7,6 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-// Local coursework settings. Change these if PostgreSQL runs elsewhere.
 const (
 	host     = "127.0.0.1"
 	port     = "5432"
@@ -29,7 +28,7 @@ func localConfig(databaseName string) (*pgx.ConnConfig, error) {
 	if err != nil {
 		return nil, err
 	}
-	
+
 	config.Password = password
 	return config, nil
 }
